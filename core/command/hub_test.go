@@ -48,12 +48,12 @@ func (dce *DemoCommandExecute) Execute(ctx context.Context, command dto.Commande
 
 func init() {
 	cti := &CostTimeIntercept{}
-	CommandHub.AddPreIntercepts(cti)
-	CommandHub.AddPostIntercepts(cti)
-	CommandHub.PutCommandExecutor(&DemoCommandExecute{})
+	Hub.AddPreIntercepts(cti)
+	Hub.AddPostIntercepts(cti)
+	Hub.PutCommandExecutor(&DemoCommandExecute{})
 }
 
-func Test_commandHub_Send(t *testing.T) {
+func Test_hub_Send(t *testing.T) {
 	type args struct {
 		ctx     context.Context
 		command dto.Commander
@@ -68,8 +68,8 @@ func Test_commandHub_Send(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotResponse := CommandHub.Send(tt.args.ctx, tt.args.command); !reflect.DeepEqual(gotResponse, tt.wantResponse) {
-				t.Errorf("commandHub.Send() = %v, want %v", gotResponse, tt.wantResponse)
+			if gotResponse := Hub.Send(tt.args.ctx, tt.args.command); !reflect.DeepEqual(gotResponse, tt.wantResponse) {
+				t.Errorf("hub.Send() = %v, want %v", gotResponse, tt.wantResponse)
 			}
 		})
 	}

@@ -6,7 +6,7 @@ import (
 	"reflect"
 )
 
-type CommandExecutor interface {
+type Executor interface {
 	Execute(ctx context.Context, command dto.Commander) (*dto.Response, error)
 	CommandType() reflect.Type
 }
