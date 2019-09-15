@@ -2,10 +2,10 @@ package dto
 
 type PageQuery struct {
 	*Query
-	PageNum        int
-	PageSize       int
-	NeedTotalCount bool
-	OrderDescs     []OrderDesc
+	PageNum        int         `json:"page_num"`
+	PageSize       int         `json:"page_size"`
+	NeedTotalCount bool        `json:"need_total_count"`
+	OrderDescs     []OrderDesc `json:"order_descs"`
 }
 
 func (pq PageQuery) Offset() int {

@@ -2,8 +2,8 @@ package command
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"github.com/zhaoche27/colago/common/extension"
 	"log"
 	"reflect"
 	"testing"
@@ -27,8 +27,8 @@ func (cti *CostTimeIntercept) PostInterceptor(ctx context.Context, command dto.C
 }
 
 type DemoCommand struct {
-	*dto.Command
-	Operator int64
+	dto.Command
+	Operator int64 `json:"operator"`
 }
 
 func (dc *DemoCommand) Desc() string {
@@ -58,7 +58,10 @@ func Test_Bus_Send(t *testing.T) {
 		ctx     context.Context
 		command dto.Commander
 	}
-	demoCommand := &DemoCommand{Operator: 123, Command: &dto.Command{BizScenario: extension.NewBizScenarioWithoutBizId("demoUserCase", "demoScenario")}}
+	demoCommand := &DemoCommand{Operator: 123}
+	bs, _ := json.Marshal(demoCommand)
+	fmt.Println(string(bs))
+
 	tests := []struct {
 		name         string
 		args         args
