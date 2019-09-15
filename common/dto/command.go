@@ -1,6 +1,8 @@
 package dto
 
-import "github.com/zhaoche27/colago/common/extension"
+import (
+	"github.com/zhaoche27/colago/common/extension"
+)
 
 type Commander interface {
 	BizScenarioInfo() extension.BizScenario
@@ -12,6 +14,9 @@ type Command struct {
 }
 
 func (c Command) BizScenarioInfo() extension.BizScenario {
+	if extension.ZeroBizScenario == c.BizScenario {
+		return extension.DefaultBizScenario
+	}
 	return c.BizScenario
 }
 

@@ -9,6 +9,10 @@ const (
 	DotSeparator    = "."
 )
 
+var DefaultBizScenario = NewBizScenario(DefaultBizId, DefaultUseCase, DefaultScenario)
+
+var ZeroBizScenario = BizScenario{}
+
 type BizScenario struct {
 	BizId    string `json:"biz_id"`
 	UseCase  string `json:"use_case"`
@@ -32,14 +36,5 @@ func NewBizScenario(bizId, useCase, scenario string) BizScenario {
 }
 
 func (bs BizScenario) String() string {
-	if bs.BizId == "" {
-		bs.BizId = DefaultBizId
-	}
-	if bs.UseCase == "" {
-		bs.UseCase = DefaultUseCase
-	}
-	if bs.Scenario == "" {
-		bs.Scenario = DefaultScenario
-	}
 	return strings.Join([]string{bs.BizId, bs.UseCase, bs.Scenario}, DotSeparator)
 }
