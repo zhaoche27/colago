@@ -23,5 +23,5 @@ type DefaultHandler struct {
 }
 
 func (deh *DefaultHandler) Handle(ctx context.Context, command dto.Commander, response *dto.Response, err error) {
-
+	panic("Please SetCurrentHandler")
 }
