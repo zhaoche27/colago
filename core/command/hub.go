@@ -1,10 +1,6 @@
 package command
 
 import (
-	"context"
-	"fmt"
-	"github.com/zhaoche27/colago/common/dto"
-	error2 "github.com/zhaoche27/colago/core/error"
 	"reflect"
 )
 
@@ -30,16 +26,4 @@ func (h *hub) PutCommandExecutor(executor Executor) {
 	}
 	ci := newInvocation(h, executor)
 	h.commandRepository[executor.CommandType()] = ci
-}
-
-func (h *hub) Send(ctx context.Context, command dto.Commander) (response *dto.Response) {
-	commandType := reflect.TypeOf(command)
-	fmt.Println(commandType.String())
-	ci, ok := h.commandRepository[commandType]
-	if !ok {
-		error2.CurrentHandler().Handle(ctx, command, response, fmt.Errorf("Not found executor, execute `%T` ", command))
-		return
-	}
-	response = ci.invoke(ctx, command)
-	return
 }

@@ -53,7 +53,7 @@ func init() {
 	Hub.PutCommandExecutor(&DemoCommandExecute{})
 }
 
-func Test_hub_Send(t *testing.T) {
+func Test_Bus_Send(t *testing.T) {
 	type args struct {
 		ctx     context.Context
 		command dto.Commander
@@ -68,7 +68,7 @@ func Test_hub_Send(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotResponse := Hub.Send(tt.args.ctx, tt.args.command); !reflect.DeepEqual(gotResponse, tt.wantResponse) {
+			if gotResponse := Bus.Send(tt.args.ctx, tt.args.command); !reflect.DeepEqual(gotResponse, tt.wantResponse) {
 				t.Errorf("hub.Send() = %v, want %v", gotResponse, tt.wantResponse)
 			}
 		})
